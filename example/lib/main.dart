@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Data Notifier Example'),
     );
   }
 }
@@ -74,6 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         tooltip: 'Error or Fix',
                         icon: const Icon(Icons.error),
                         onPressed: counterNotifier.errorOrFix,
+                      ),
+                      IconButton(
+                        tooltip: 'Loading for a second',
+                        icon: const Icon(Icons.refresh),
+                        onPressed: counterNotifier.loadingForASecond,
                       ),
                       IconButton(
                         tooltip: 'Increment',

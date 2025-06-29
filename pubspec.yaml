@@ -1,7 +1,12 @@
 name: data_notifier
 description: "A Flutter package for managing and observing data changes in reactive and simple way."
 version: 0.1.0
-homepage: null
+
+license: MIT
+publish_to: "https://pub.dev"
+homepage: https://github.com/melihhakanpektas/data_notifier
+repository: https://github.com/melihhakanpektas/data_notifier
+issue_tracker: https://github.com/melihhakanpektas/data_notifier/issues
 
 environment:
   sdk: ^3.8.1
@@ -15,5 +20,3 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-
-flutter: null

@@ -1,7 +1,7 @@
 import 'package:data_notifier/data_notifier.dart';
 
 class CounterNotifier extends DataNotifier<NotifierState<int, int>> {
-  CounterNotifier._() : super(const NotifierStateLoading()) {
+  CounterNotifier._() : super(const NotifierStateLoading(), debugConsoleLogs: false) {
     // Fake loading data
     Future.delayed(const Duration(seconds: 5), () {
       value = NotifierStateLoaded(0);
@@ -45,5 +45,18 @@ class CounterNotifier extends DataNotifier<NotifierState<int, int>> {
       },
       orElse: () => const NotifierStateLoading(),
     );
+  }
+
+  void loadingForASecond() {
+    // Simulate a loading state for 1 second
+    value = value.whenOrElse(
+      loading: () => const NotifierStateLoading(),
+      loaded: (data) => const NotifierStateLoading(),
+      error: (error, message) => const NotifierStateLoading(),
+      orElse: () => const NotifierStateLoading(),
+    );
+    Future.delayed(const Duration(seconds: 1), () {
+      value = NotifierStateLoaded(0);
+    });
   }
 }
