@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -63,8 +61,8 @@ class NotifierBuilder<T> extends StatefulWidget {
   /// An optional child widget that does not depend on the value.
   final Widget? child;
 
-  /// Widget ilk oluşturulduğunda çağrılacak opsiyonel fonksiyon.
-  final FutureOr<void> Function(T)? onInit;
+  /// Optional callback that is called when the widget is initialized.
+  final void Function(T)? onInit;
 
   @override
   State<StatefulWidget> createState() => _NotifierBuilderState<T>();
