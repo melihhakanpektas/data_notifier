@@ -64,7 +64,7 @@ class NotifierBuilder<T> extends StatefulWidget {
   final Widget? child;
 
   /// Widget ilk oluşturulduğunda çağrılacak opsiyonel fonksiyon.
-  final FutureOr<void> Function()? onInit;
+  final FutureOr<void> Function(T)? onInit;
 
   @override
   State<StatefulWidget> createState() => _NotifierBuilderState<T>();
@@ -79,7 +79,7 @@ class _NotifierBuilderState<T> extends State<NotifierBuilder<T>> {
     super.initState();
     value = widget.valueNotifier.value;
     widget.valueNotifier.addListener(_valueChanged);
-    widget.onInit?.call();
+    widget.onInit?.call(value);
   }
 
   @override
