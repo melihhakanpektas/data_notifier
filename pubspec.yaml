@@ -3,7 +3,6 @@ description: "A Flutter package for managing and observing data changes in react
 version: 0.1.0
 
 license: MIT
-publish_to: "https://pub.dev"
 homepage: https://github.com/melihhakanpektas/data_notifier
 repository: https://github.com/melihhakanpektas/data_notifier
 issue_tracker: https://github.com/melihhakanpektas/data_notifier/issues
