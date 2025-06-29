@@ -1,6 +1,6 @@
 name: data_notifier
 description: "A Flutter package for managing and observing data changes in reactive and simple way."
-version: 0.1.0
+version: 0.1.1
 
 license: MIT
 homepage: https://github.com/melihhakanpektas/data_notifier
