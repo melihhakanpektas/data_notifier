@@ -4,30 +4,30 @@
 
 ## Features
 
-- **NotifierState**: Represents loading, loaded, and error states for your data.
+- **DataState**: Represents loading, loaded, and error states for your data.
 - **DataNotifier**: Extends `ValueNotifier` to provide state management and debug output.
 - **Colorful Console Output**: In debug mode, prints colored and styled messages to the console for different states.
 
 ## Overview
 
-### NotifierState
+### DataState
 
-Defines the `NotifierState<T, D>` abstract class and its implementations:
+Defines the `DataState<T, D>` abstract class and its implementations:
 
-- `NotifierStateLoading`, `NotifierStateLoaded`, `NotifierStateError`: Represent loading, loaded, and error states.
+- `DataStateLoading`, `DataStateLoaded`, `DataStateError`: Represent loading, loaded, and error states.
 - Provides `when`, `maybeWhen`, and `whenOrElse` methods for easy state handling.
 
-#### NotifierState Type Parameters
+#### DataState Type Parameters
 
 - **T**: The type of the notifier itself or the context to which the state belongs. Typically used to indicate what kind of notifier you are working with.
-- **D**: The type of the data being loaded or managed. For example, this can be a list, a model, or any data type.
+- **D**: The type of the data being loaded. For example, this can be a list, a model, or any data type.
 
 #### State Classes and Parameters
 
-- **NotifierStateLoading<T, D>**: Represents a loading state. Takes no parameters.
-- **NotifierStateLoaded<T, D>**: Represents a successfully loaded data state.
+- **DataStateLoading<T, D>**: Represents a loading state. Takes no parameters.
+- **DataStateLoaded<T, D>**: Represents a successfully loaded data state.
   - `data`: Contains the loaded data. Type is `D`.
-- **NotifierStateError<T, D>**: Represents an error state.
+- **DataStateError<T, D>**: Represents an error state.
   - `error`: The error object (can be any type).
   - `message`: The error message (String).
 
@@ -51,7 +51,7 @@ state.when(
 
 ### DataNotifier
 
-- `DataNotifier<T extends NotifierState>`: A custom `ValueNotifier` that listens to state changes and prints debug information with color.
+- `DataNotifier<T extends DataState>`: A custom `ValueNotifier` that listens to state changes and prints debug information with color.
 - Ensures UI updates are triggered at the right time.
 
 ### NotifierBuilder
