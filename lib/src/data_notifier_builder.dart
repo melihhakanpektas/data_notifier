@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Signature for a function that builds a widget based on the given value.
-typedef ValueWidgetBuilder<T> = Widget Function(BuildContext context, T value, Widget? child);
+typedef ValueWidgetBuilder<T> =
+    Widget Function(BuildContext context, T value, Widget? child);
 
 /// Signature for a function that listens to value changes.
 typedef Listener<T> = void Function(T oldValue, T newValue);
@@ -100,7 +101,8 @@ class _NotifierBuilderState<T> extends State<NotifierBuilder<T>> {
     if (!mounted) return;
     final T oldValue = value;
     final T newValue = widget.valueNotifier.value;
-    final shouldCallListener = widget.listenWhen?.call(oldValue, newValue) ?? true;
+    final shouldCallListener =
+        widget.listenWhen?.call(oldValue, newValue) ?? true;
     setState(() {
       value = newValue;
     });

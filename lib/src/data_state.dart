@@ -47,7 +47,10 @@ abstract class DataState<T, D> {
     } else if (this is DataStateLoaded) {
       return loaded?.call((this as DataStateLoaded<T, D>).data);
     } else if (this is DataStateError) {
-      return error?.call((this as DataStateError).error, (this as DataStateError).message);
+      return error?.call(
+        (this as DataStateError).error,
+        (this as DataStateError).message,
+      );
     }
     return orElse?.call();
   }
@@ -70,7 +73,10 @@ abstract class DataState<T, D> {
     } else if (this is DataStateLoaded) {
       return loaded?.call((this as DataStateLoaded<T, D>).data) ?? orElse();
     } else if (this is DataStateError) {
-      return error?.call((this as DataStateError).error, (this as DataStateError).message) ??
+      return error?.call(
+            (this as DataStateError).error,
+            (this as DataStateError).message,
+          ) ??
           orElse();
     }
     return orElse();

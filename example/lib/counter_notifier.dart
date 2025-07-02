@@ -1,7 +1,8 @@
 import 'package:data_notifier/data_notifier.dart';
 
 class CounterNotifier extends DataNotifier<DataState<int, int>> {
-  CounterNotifier._() : super(const DataStateLoading(), debugConsoleLogs: false) {
+  CounterNotifier._()
+    : super(const DataStateLoading(), debugConsoleLogs: false) {
     // Fake loading data
     Future.delayed(const Duration(seconds: 5), () {
       value = DataStateLoaded(0);
@@ -38,7 +39,8 @@ class CounterNotifier extends DataNotifier<DataState<int, int>> {
   void errorOrFix() {
     value = value.whenOrElse(
       loading: () => const DataStateLoading(),
-      loaded: (data) => DataStateError(Exception('An error occurred'), 'An error occurred'),
+      loaded: (data) =>
+          DataStateError(Exception('An error occurred'), 'An error occurred'),
       error: (error, message) {
         // Simulate fixing the error
         return DataStateLoaded(0);

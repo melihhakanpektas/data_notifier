@@ -13,7 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
       home: const MyHomePage(title: 'Data Notifier Example'),
     );
   }
@@ -49,7 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
               error: (message) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Error: $message', style: Theme.of(context).textTheme.headlineMedium),
+                  Text(
+                    'Error: $message',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                   SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: counterNotifier.errorOrFix,
@@ -61,7 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Text('You have pushed the button this many times:'),
-                  Text('$data', style: Theme.of(context).textTheme.headlineMedium),
+                  Text(
+                    '$data',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

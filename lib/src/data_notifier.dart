@@ -32,13 +32,23 @@ class DataNotifier<T extends DataState> extends ValueNotifier<T> {
         kMyDebugPrint('$T: Loading', color: PrintColor.yellow); // Sarı
       },
       error: (error, message) {
-        kMyDebugPrint('$T: Error $message', color: PrintColor.red, blink: true); // Kırmızı
+        kMyDebugPrint(
+          '$T: Error $message',
+          color: PrintColor.red,
+          blink: true,
+        ); // Kırmızı
       },
       loaded: (data) {
         if (data is List) {
-          kMyDebugPrint('$T: Loaded ${data.length} items', color: PrintColor.green); // Yeşil
+          kMyDebugPrint(
+            '$T: Loaded ${data.length} items',
+            color: PrintColor.green,
+          ); // Yeşil
         } else {
-          kMyDebugPrint('$T: Loaded data $data', color: PrintColor.green); // Yeşil
+          kMyDebugPrint(
+            '$T: Loaded data $data',
+            color: PrintColor.green,
+          ); // Yeşil
         }
       },
     );
