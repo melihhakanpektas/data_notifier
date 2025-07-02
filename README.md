@@ -1,6 +1,6 @@
 # data_notifier
 
-`data_notifier` is a Flutter package for managing and observing data changes on the server in a reactive and simple way.
+`data_notifier` is a Flutter package for managing and observing data states using `ValueNotifier` and `ValueListenable`. It provides a structured way to handle loading, loaded, and error states in your applications, with enhanced debugging capabilities through colorful console output.
 
 ## Features
 

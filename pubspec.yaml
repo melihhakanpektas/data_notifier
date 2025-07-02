@@ -1,6 +1,6 @@
 name: data_notifier
-description: "A Flutter package for managing and observing data changes in reactive and simple way."
-version: 0.1.2
+description: "A package for managing and observing data states using `ValueNotifier` and `ValueListenable`. It provides a structured way to handle loading, loaded, and error states in your applications, with enhanced debugging capabilities through colorful console output."
+version: 0.1.3
 
 license: MIT
 homepage: https://github.com/melihhakanpektas/data_notifier
