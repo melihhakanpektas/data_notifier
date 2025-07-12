@@ -1,11 +1,10 @@
 import 'package:data_notifier/data_notifier.dart';
 
-class CounterNotifier extends DataNotifier<DataState<int, int>> {
-  CounterNotifier._()
-    : super(const DataStateLoading(), debugConsoleLogs: false) {
+class CounterNotifier extends DataNotifier<NotifierState<int, int>> {
+  CounterNotifier._() : super(const NotifierStateLoading(), debugConsoleLogs: false) {
     // Fake loading data
     Future.delayed(const Duration(seconds: 5), () {
-      value = DataStateLoaded(0);
+      value = NotifierStateLoaded(0);
     });
   }
 
@@ -19,46 +18,45 @@ class CounterNotifier extends DataNotifier<DataState<int, int>> {
   /// Increments the counter value by 1.
   void increment() {
     value = value.whenOrElse(
-      loading: () => const DataStateLoading(),
-      loaded: (data) => DataStateLoaded(data + 1),
-      error: (error, message) => DataStateError(error, message),
-      orElse: () => const DataStateLoading(),
+      loading: () => const NotifierStateLoading(),
+      loaded: (data) => NotifierStateLoaded(data + 1),
+      error: (error, message) => NotifierStateError(error, message),
+      orElse: () => const NotifierStateLoading(),
     );
   }
 
   /// Decrements the counter value by 1.
   void decrement() {
     value = value.whenOrElse(
-      loading: () => const DataStateLoading(),
-      loaded: (data) => DataStateLoaded(data - 1),
-      error: (error, message) => DataStateError(error, message),
-      orElse: () => const DataStateLoading(),
+      loading: () => const NotifierStateLoading(),
+      loaded: (data) => NotifierStateLoaded(data - 1),
+      error: (error, message) => NotifierStateError(error, message),
+      orElse: () => const NotifierStateLoading(),
     );
   }
 
   void errorOrFix() {
     value = value.whenOrElse(
-      loading: () => const DataStateLoading(),
-      loaded: (data) =>
-          DataStateError(Exception('An error occurred'), 'An error occurred'),
+      loading: () => const NotifierStateLoading(),
+      loaded: (data) => NotifierStateError(Exception('An error occurred'), 'An error occurred'),
       error: (error, message) {
         // Simulate fixing the error
-        return DataStateLoaded(0);
+        return NotifierStateLoaded(0);
       },
-      orElse: () => const DataStateLoading(),
+      orElse: () => const NotifierStateLoading(),
     );
   }
 
   void loadingForASecond() {
     // Simulate a loading state for 1 second
     value = value.whenOrElse(
-      loading: () => const DataStateLoading(),
-      loaded: (data) => const DataStateLoading(),
-      error: (error, message) => const DataStateLoading(),
-      orElse: () => const DataStateLoading(),
+      loading: () => const NotifierStateLoading(),
+      loaded: (data) => const NotifierStateLoading(),
+      error: (error, message) => const NotifierStateLoading(),
+      orElse: () => const NotifierStateLoading(),
     );
     Future.delayed(const Duration(seconds: 1), () {
-      value = DataStateLoaded(0);
+      value = NotifierStateLoaded(0);
     });
   }
 }

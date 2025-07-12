@@ -2,8 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Signature for a function that builds a widget based on the given value.
-typedef ValueWidgetBuilder<T> =
-    Widget Function(BuildContext context, T value, Widget? child);
+typedef ValueWidgetBuilder<T> = Widget Function(BuildContext context, T value, Widget? child);
 
 /// Signature for a function that listens to value changes.
 typedef Listener<T> = void Function(T oldValue, T newValue);
@@ -26,6 +25,10 @@ typedef ListenWhen<T> = bool Function(T previous, T current);
 /// Doing so may cause unexpected rebuilds and infinite loops.
 /// The [listener] is called after the widget has rebuilt, so any further rebuilds
 /// triggered from within the [listener] can lead to unstable widget behavior.
+///
+/// **NOTE:**
+/// Either [builder] or [child] must be provided. Both cannot be null at the same time.
+/// If both are null, an [ArgumentError] will be thrown at runtime.
 class NotifierBuilder<T> extends StatefulWidget {
   /// Creates a [NotifierBuilder].
   ///
@@ -38,7 +41,7 @@ class NotifierBuilder<T> extends StatefulWidget {
   const NotifierBuilder({
     super.key,
     required this.valueNotifier,
-    required this.builder,
+    this.builder,
     this.listener,
     this.listenWhen,
     this.child,
@@ -49,7 +52,7 @@ class NotifierBuilder<T> extends StatefulWidget {
   final ValueListenable<T> valueNotifier;
 
   /// Called every time the value changes.
-  final ValueWidgetBuilder<T> builder;
+  final ValueWidgetBuilder<T>? builder;
 
   /// Optional callback called with the old and new values when the value changes.
   /// Will only be called if [listenWhen] returns true (or if [listenWhen] is not provided).
@@ -101,8 +104,7 @@ class _NotifierBuilderState<T> extends State<NotifierBuilder<T>> {
     if (!mounted) return;
     final T oldValue = value;
     final T newValue = widget.valueNotifier.value;
-    final shouldCallListener =
-        widget.listenWhen?.call(oldValue, newValue) ?? true;
+    final shouldCallListener = widget.listenWhen?.call(oldValue, newValue) ?? true;
     setState(() {
       value = newValue;
     });
@@ -117,6 +119,9 @@ class _NotifierBuilderState<T> extends State<NotifierBuilder<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder(context, value, widget.child);
+    if (widget.builder == null && widget.child == null) {
+      throw ArgumentError('Either builder or child must be provided to NotifierBuilder.');
+    }
+    return widget.builder?.call(context, value, widget.child) ?? widget.child!;
   }
 }

@@ -1,4 +1,4 @@
-import 'package:data_notifier/src/data_state.dart';
+import 'package:data_notifier/src/notifier_state.dart';
 import 'package:data_notifier/src/print_color.dart';
 import 'package:data_notifier/src/utils.dart';
 import 'package:flutter/foundation.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/foundation.dart';
 /// When set to `true`, all state updates will be printed to the console for debugging purposes.
 /// Useful for tracking state changes during development.
 /// It also provides a debug listener that prints the current state of the notifier to the console.
-class DataNotifier<T extends DataState> extends ValueNotifier<T> {
+class DataNotifier<T extends NotifierState> extends ValueNotifier<T> {
   /// The [debugConsoleLogs] parameter controls whether the notifier logs its state changes to the
   /// debug console when kDebugMode is true.
   /// When set to `true`, it will print the current state of the notifier to the
