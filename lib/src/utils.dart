@@ -1,4 +1,4 @@
-import 'package:data_notifier/src/cmd_color.dart';
+import 'package:data_notifier/src/print_color.dart';
 import 'package:flutter/foundation.dart';
 
 // Temel stil komutları
