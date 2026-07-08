@@ -1,62 +1,49 @@
 import 'package:data_notifier/data_notifier.dart';
 
-class CounterNotifier extends DataNotifier<NotifierState<int, int>> {
-  CounterNotifier._() : super(const NotifierStateLoading(), debugConsoleLogs: false) {
-    // Fake loading data
-    Future.delayed(const Duration(seconds: 5), () {
-      value = NotifierStateLoaded(0);
-    });
+class CounterNotifier extends DataNotifier<int> {
+  CounterNotifier._() : super.loading() {
+    load(_fetchCounter);
+  }
+
+  /// Simulates fetching the counter from a remote source.
+  static Future<int> _fetchCounter() async {
+    await Future.delayed(const Duration(seconds: 2));
+    return 0;
   }
 
   /// Instance of the CounterNotifier
   /// This is a singleton instance, so it can be used throughout the app.
   /// Starts when you call `CounterNotifier.instance`
-  /// Ends when you call `CounterNotifier.instance.cancel()`
   /// You can use this instance to listen to changes in the counter value.
   static final CounterNotifier instance = CounterNotifier._();
 
   /// Increments the counter value by 1.
   void increment() {
-    value = value.whenOrElse(
-      loading: () => const NotifierStateLoading(),
-      loaded: (data) => NotifierStateLoaded(data + 1),
-      error: (error, message) => NotifierStateError(error, message),
-      orElse: () => const NotifierStateLoading(),
-    );
+    final data = value.dataOrNull;
+    if (data != null) setLoaded(data + 1);
   }
 
   /// Decrements the counter value by 1.
   void decrement() {
-    value = value.whenOrElse(
-      loading: () => const NotifierStateLoading(),
-      loaded: (data) => NotifierStateLoaded(data - 1),
-      error: (error, message) => NotifierStateError(error, message),
-      orElse: () => const NotifierStateLoading(),
-    );
+    final data = value.dataOrNull;
+    if (data != null) setLoaded(data - 1);
   }
 
+  /// Switches to an error state when loaded, and back to a loaded state
+  /// when in error. Demonstrates native pattern matching on the sealed
+  /// [NotifierState] class.
   void errorOrFix() {
-    value = value.whenOrElse(
-      loading: () => const NotifierStateLoading(),
-      loaded: (data) => NotifierStateError(Exception('An error occurred'), 'An error occurred'),
-      error: (error, message) {
-        // Simulate fixing the error
-        return NotifierStateLoaded(0);
-      },
-      orElse: () => const NotifierStateLoading(),
-    );
+    switch (value) {
+      case NotifierStateLoaded<int>():
+        setError(Exception('An error occurred'), 'An error occurred');
+      case NotifierStateError<int>():
+        setLoaded(0);
+      case NotifierStateLoading<int>():
+        break;
+    }
   }
 
-  void loadingForASecond() {
-    // Simulate a loading state for 1 second
-    value = value.whenOrElse(
-      loading: () => const NotifierStateLoading(),
-      loaded: (data) => const NotifierStateLoading(),
-      error: (error, message) => const NotifierStateLoading(),
-      orElse: () => const NotifierStateLoading(),
-    );
-    Future.delayed(const Duration(seconds: 1), () {
-      value = NotifierStateLoaded(0);
-    });
-  }
+  /// Reloads the counter. While the reload is in progress, the previous
+  /// value stays available via `state.dataOrPrevious`.
+  void reload() => load(_fetchCounter);
 }

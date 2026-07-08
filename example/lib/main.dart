@@ -47,8 +47,18 @@ class _MyHomePageState extends State<MyHomePage> {
             // Use the when method to handle different states of the notifier
             // This will return a widget based on the current state
             return value.when(
-              loading: () => const CircularProgressIndicator(),
-              error: (message) => Column(
+              loading: () => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircularProgressIndicator(),
+                  // Keep showing the previous value while reloading.
+                  if (value.dataOrPrevious != null) ...[
+                    const SizedBox(height: 10),
+                    Text('Last value: ${value.dataOrPrevious}'),
+                  ],
+                ],
+              ),
+              error: (error, message) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
@@ -84,9 +94,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         onPressed: counterNotifier.errorOrFix,
                       ),
                       IconButton(
-                        tooltip: 'Loading for a second',
+                        tooltip: 'Reload',
                         icon: const Icon(Icons.refresh),
-                        onPressed: counterNotifier.loadingForASecond,
+                        onPressed: counterNotifier.reload,
                       ),
                       IconButton(
                         tooltip: 'Increment',

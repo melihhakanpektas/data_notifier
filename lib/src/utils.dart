@@ -1,14 +1,13 @@
 import 'package:data_notifier/src/print_color.dart';
 import 'package:flutter/foundation.dart';
 
-// Temel stil komutları
-const kCmdReset = '\x1b[0m'; // Tüm stilleri sıfırla
-const kCmdBold = '\x1b[1m'; // Kalın
-const kCmdBlink = '\x1b[5m'; // Yanıp sönen
+const _kCmdReset = '\x1b[0m';
+const _kCmdBold = '\x1b[1m';
 
-void kMyDebugPrint(String message, {PrintColor? color, bool blink = false}) {
-  final kCmdStyle = '$kCmdBold${blink ? kCmdBlink : ''}';
-  if (kDebugMode == false) return;
-  final cmdStyle = '$kCmdStyle${color != null ? "\x1b[${color.code}m" : ''}';
-  debugPrint('$cmdStyle$message$kCmdReset');
+/// Prints [message] to the debug console in bold, optionally colored with
+/// [color]. Does nothing outside of debug mode.
+void kMyDebugPrint(String message, {PrintColor? color}) {
+  if (!kDebugMode) return;
+  final cmdStyle = '$_kCmdBold${color != null ? "\x1b[${color.code}m" : ''}';
+  debugPrint('$cmdStyle$message$_kCmdReset');
 }
